@@ -1,14 +1,23 @@
+"""Prepare the NLTK resources shared by the notebook and setup script."""
+
 import nltk
 
-required_nltk_resources = {
-    "vader_lexicon": "sentiment/vader_lexicon",
-    "stopwords": "corpora/stopwords",
+RESOURCES = {
+    "vader_lexicon": "sentiment/vader_lexicon.zip/vader_lexicon/vader_lexicon.txt",
+    "stopwords": "corpora/stopwords/",
 }
 
-for pkg_name, pkg_path in required_nltk_resources.items():
-    try:
-        nltk.data.find(pkg_path)
-        print(f"NLTK resource '{pkg_name}' found (path: {pkg_path}).")
-    except LookupError:
-        print(f"NLTK resource '{pkg_name}' not found. Downloading...")
-        nltk.download(pkg_name)
+
+def ensure_resources():
+    for name, path in RESOURCES.items():
+        try:
+            nltk.data.find(path)
+        except LookupError:
+            print(f"Downloading missing NLTK resource: {name}")
+            if not nltk.download(name, quiet=True):
+                raise RuntimeError(f"Could not download NLTK resource: {name}")
+            nltk.data.find(path)
+
+
+if __name__ == "__main__":
+    ensure_resources()

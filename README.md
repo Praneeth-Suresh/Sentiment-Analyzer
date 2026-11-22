@@ -40,7 +40,7 @@ Optional topic inference:
 python -m spacy download en_core_web_lg
 ```
 
-Then open `SentimentTrial.ipynb` and run the notebook.
+Start Jupyter from the repository root, then open [SentimentTrial.ipynb](SentimentTrial.ipynb) and run all cells. The final cell uses a fictional sentence so no document download is needed. Setup downloads missing NLTK data once.
 
 ## Status and Limitations
 
